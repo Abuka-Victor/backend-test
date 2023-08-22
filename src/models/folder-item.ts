@@ -1,11 +1,8 @@
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey } from 'sequelize';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes } from 'sequelize';
 import sequelize from '../config/database';
-import { User, Folder } from './index';
 
 class FolderItem extends Model<InferAttributes<FolderItem>, InferCreationAttributes<FolderItem>> {
   declare item_id: CreationOptional<number>;
-  declare folder_id: ForeignKey<Folder["folder_id"]>;
-  declare user_id: ForeignKey<User['id']>;
   declare isFolder: boolean;
   declare downloadUrl: string;
   declare createdAt: CreationOptional<Date>;
@@ -14,7 +11,7 @@ class FolderItem extends Model<InferAttributes<FolderItem>, InferCreationAttribu
 
 FolderItem.init({
   item_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },

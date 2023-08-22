@@ -1,11 +1,10 @@
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, ForeignKey, HasManyAddAssociationMixin, HasManyAddAssociationsMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin, HasManyHasAssociationsMixin, HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, HasManySetAssociationsMixin, NonAttribute, Association } from 'sequelize';
 import sequelize from '../config/database';
-import { User, FolderItem } from './index';
+import { FolderItem } from './index';
 
 class Folder extends Model<InferAttributes<Folder, { omit: 'folderItems' }>, InferCreationAttributes<Folder, { omit: 'folderItems' }>> {
-  declare folder_id: CreationOptional<number>;
-  declare user_id: ForeignKey<User['id']>;
-  declare parent_id: ForeignKey<Folder["folder_id"]>;
+  declare id: CreationOptional<number>;
+  declare parent_id: ForeignKey<Folder["id"]>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -18,7 +17,7 @@ class Folder extends Model<InferAttributes<Folder, { omit: 'folderItems' }>, Inf
   declare hasFolderItem: HasManyHasAssociationMixin<FolderItem, number>;
   declare hasFolderItems: HasManyHasAssociationsMixin<FolderItem, number>;
   declare countFolderItems: HasManyCountAssociationsMixin;
-  declare createFolderItem: HasManyCreateAssociationMixin<FolderItem, 'user_id'>;
+  declare createFolderItem: HasManyCreateAssociationMixin<FolderItem>;
 
   declare folderItems?: NonAttribute<FolderItem[]>;
 
@@ -29,12 +28,12 @@ class Folder extends Model<InferAttributes<Folder, { omit: 'folderItems' }>, Inf
 }
 
 Folder.init({
-  folder_id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+  id: {
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  parent_id: { type: DataTypes.INTEGER.UNSIGNED, allowNull: true },
+  parent_id: { type: DataTypes.INTEGER, allowNull: true },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
 },

@@ -20,18 +20,18 @@ class User extends Model<InferAttributes<User, { omit: 'folders' }>, InferCreati
   declare hasFolder: HasManyHasAssociationMixin<Folder, number>;
   declare hasFolders: HasManyHasAssociationsMixin<Folder, number>;
   declare countFolders: HasManyCountAssociationsMixin;
-  declare createFolder: HasManyCreateAssociationMixin<Folder, 'user_id'>;
+  declare createFolder: HasManyCreateAssociationMixin<Folder>;
 
   declare folders?: NonAttribute<Folder[]>;
 
   declare static associations: {
-    projects: Association<User, Folder>;
+    folders: Association<User, Folder>;
   };
 }
 
 User.init({
   id: {
-    type: DataTypes.INTEGER.UNSIGNED,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
