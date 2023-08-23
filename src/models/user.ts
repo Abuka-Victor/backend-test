@@ -7,7 +7,6 @@ class User extends Model<InferAttributes<User, { omit: 'folders' }>, InferCreati
   declare fullname: string;
   declare email: string;
   declare passwordHash: string;
-  declare salt: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -44,10 +43,6 @@ User.init({
     allowNull: false
   },
   passwordHash: {
-    type: new DataTypes.STRING(128),
-    allowNull: false
-  },
-  salt: {
     type: new DataTypes.STRING(128),
     allowNull: false
   },
