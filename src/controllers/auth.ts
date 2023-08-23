@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import { signUpBodyValidator, loginBodyValidator } from "../validators/authValidators"
 import { generateToken } from "../utils/token"
 import { User } from "../models"
+import client from "../config/redis"
 import { REFRESH_TOKEN_PRIVATE_KEY, ACCESS_TOKEN_PRIVATE_KEY, NODE_ENV } from "../config/keys"
 
 export const loginHandler = async (req: Request, res: Response) => {
@@ -43,6 +44,7 @@ export const loginHandler = async (req: Request, res: Response) => {
     maxAge: 3 * 24 * 60 * 60 * 1000,
   })
   // Add the refresh token to redis whitelist
+  client.sAdd("whitelist", refreshToken)
 
   return res.status(200).json({ accessToken, refreshToken, user: { id: user.id, email: user.email, fullname: user.fullname, createdAt: user.createdAt, updatedAt: user.updatedAt } });
 }
@@ -71,8 +73,13 @@ export const registerHandler = async (req: Request, res: Response) => {
   return res.status(201).json({ user: { id: newUser.id, email: newUser.email, fullname: newUser.fullname, createdAt: newUser.createdAt, updatedAt: newUser.updatedAt } })
 }
 
-export const logOutHandler = (req: Request, res: Response) => {
+export const logOutHandler = async (req: Request, res: Response) => {
+  if (req.cookies.refreshToken === undefined && req.cookies.accessToken === undefined) {
+    return res.status(401).json({ error: "You are not logged in" })
+  }
+  const refreshToken = req.cookies.refreshToken;
+  await client.sRem("whitelist", refreshToken)
   res.clearCookie("accessToken")
   res.clearCookie("refreshToken")
-  // remove the refresh token from redis
+  res.status(200).json({ success: "You have successfully signed out" })
 }

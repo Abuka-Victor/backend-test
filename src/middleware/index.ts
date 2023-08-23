@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { generateToken, verifyToken } from "../utils/token";
 import { ACCESS_TOKEN_PRIVATE_KEY, REFRESH_TOKEN_PRIVATE_KEY, NODE_ENV } from "../config/keys"
+import client from "../config/redis";
 
 export const checkAllowedMethods = (req: Request, res: Response, next: NextFunction) => {
   // NOTE: Exclude TRACE and TRACK methods to avoid XST attacks.
@@ -22,7 +23,7 @@ export const checkAllowedMethods = (req: Request, res: Response, next: NextFunct
   next();
 };
 
-export const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
   if (req.cookies.accessToken !== undefined) {
     try {
       const token = verifyToken(req.cookies.accessToken, ACCESS_TOKEN_PRIVATE_KEY as string);
@@ -35,7 +36,7 @@ export const isAuthenticated = (req: Request, res: Response, next: NextFunction)
     } catch (err) {
       res.status(401).json({ message: "unauthorized", details: "unable to verify accessToken" })
     }
-  } else if (req.cookies.refreshToken !== undefined) {
+  } else if (req.cookies.refreshToken !== undefined && await client.sIsMember("whitelist", req.cookies.refreshToken)) {
     try {
       const token = verifyToken(req.cookies.refreshToken, REFRESH_TOKEN_PRIVATE_KEY as string);
       if (token !== null) {

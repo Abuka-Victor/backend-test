@@ -10,6 +10,7 @@ config()
 // SESSION_SECRET=your session secret
 
 export const { POSTGRES_URI,
+  REDIS_URI,
   APP_SECRET,
   PORT,
   ACCESS_TOKEN_PRIVATE_KEY,
