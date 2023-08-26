@@ -6,7 +6,9 @@ import cors from "cors"
 import sequelize from "./config/database"
 import { User, Folder, FolderItem } from "./models"
 import authRouter from "./routes/auth"
+import fileRouter from "./routes/file"
 import { checkAllowedMethods, isAuthenticated } from "./middleware"
+import { errorHandler } from "./controllers/error"
 
 declare module "express" {
   interface Request {
@@ -27,6 +29,7 @@ app.use(checkAllowedMethods)
 const port = Number(process.env.PORT || 3000)
 
 app.use("/auth", authRouter)
+app.use("/file", fileRouter)
 
 app.get("/", (req, res) => {
   res.json({ message: "API is up and running" })
@@ -39,6 +42,8 @@ app.get("/test", isAuthenticated, (req, res) => {
 app.get("/test1", (req, res) => {
   res.json({ message: "This route is free to test with" })
 })
+
+app.use(errorHandler)
 
 User.hasMany(Folder, {
   onDelete: "CASCADE"
