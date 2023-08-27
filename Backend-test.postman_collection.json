@@ -1,0 +1,746 @@
+{
+	"info": {
+		"_postman_id": "f4113e17-479c-4eb7-a016-d55bf18222a1",
+		"name": "Backend-test",
+		"description": "This is a rest api built with Node (Express) that serves as a file storage service. Users can create accounts and login.\n\nAfter login user would be able to create folders to upload files. On account creation a root folder is created for each user which will then store other files and folders.\n\nNote:\n\n{{host}} - denotes local server (i.e you have this project running on your local machine: Port-8080)\n\n{{webhost}} - denotes the live project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17358662"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullname\": \"Victor Abuka\",\n    \"email\": \"stuff@gmail.com\",\n    \"password\": \"stuffingsA1*\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/register",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"register"
+					]
+				},
+				"description": "Allows a user to register"
+			},
+			"response": [
+				{
+					"name": "register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Victor Abuka\",\n    \"email\": \"stuff@gmail.com\",\n    \"password\": \"stuffingsA1*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "147"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"93-xPHAS4Amud9wxBAu2cakLl0hIAc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:54:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"user\": {\n        \"id\": 1,\n        \"email\": \"stuff@gmail.com\",\n        \"fullname\": \"Victor Abuka\",\n        \"createdAt\": \"2023-08-27T07:54:13.215Z\",\n        \"updatedAt\": \"2023-08-27T07:54:13.215Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"stuff@gmail.com\",\n    \"password\": \"stuffingsA1*\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/auth/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				},
+				"description": "Allows a user to login - auth is cookie based not bearer"
+			},
+			"response": [
+				{
+					"name": "login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"stuff@gmail.com\",\n    \"password\": \"stuffingsA1*\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2OTMxMjI4NTYsImV4cCI6MTY5MzEyMzAzNn0.UV4bVsu5Vi6cQMAoI2pz_NWUSN3LnY-DcNjoJXlm--0; Max-Age=180; Path=/; Expires=Sun, 27 Aug 2023 07:57:16 GMT; HttpOnly"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2OTMxMjI4NTYsImV4cCI6MTY5MzM4MjA1Nn0.GNUhawl1cFDzLo5ZyE8ZtqErurmSz55sjLszQw5CEZs; Max-Age=259200; Path=/; Expires=Wed, 30 Aug 2023 07:54:16 GMT; HttpOnly"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "470"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1d6-3p1Tx98yLJqFwgSyGW6LOhza4F4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:54:16 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2OTMxMjI4NTYsImV4cCI6MTY5MzEyMzAzNn0.UV4bVsu5Vi6cQMAoI2pz_NWUSN3LnY-DcNjoJXlm--0\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJpYXQiOjE2OTMxMjI4NTYsImV4cCI6MTY5MzM4MjA1Nn0.GNUhawl1cFDzLo5ZyE8ZtqErurmSz55sjLszQw5CEZs\",\n    \"user\": {\n        \"id\": 1,\n        \"email\": \"stuff@gmail.com\",\n        \"fullname\": \"Victor Abuka\",\n        \"createdAt\": \"2023-08-27T07:54:13.215Z\",\n        \"updatedAt\": \"2023-08-27T07:54:13.215Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/auth/logout",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				},
+				"description": "Allows the user to logout from the session"
+			},
+			"response": [
+				{
+					"name": "logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/auth/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "46"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2e-onmp0W9I50f0jvN0f/7Kz/WWR8c\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 06:29:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": \"You have successfully signed out\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "filename",
+							"type": "file",
+							"src": "/Users/abuka/Documents/Experience Tech 1.0.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/file/root",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"root"
+					]
+				},
+				"description": "An auth route that lets the user upload a file"
+			},
+			"response": [
+				{
+					"name": "Create File",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "filename",
+									"type": "file",
+									"src": "/Users/abuka/Documents/Experience Tech 1.0.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/file/root",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"root"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "272"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"110-3wnhDBSThzF1roJwav5zzMjqkuo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:55:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"File created successfully\",\n    \"name\": \"Experience Tech 1.0.png\",\n    \"type\": \"image/png\",\n    \"downloadUrl\": \"https://firebasestorage.googleapis.com/v0/b/risevesttest.appspot.com/o/1693122904283Experience%20Tech%201.0.png?alt=media&token=aa443602-6340-48ba-b616-0851e93a16e8\"\n}"
+				}
+			]
+		},
+		{
+			"name": "download file",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/file/3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"3"
+					]
+				},
+				"description": "An auth route that lets the user download an uploaded file by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "delete file",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/file/6253734",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"6253734"
+					]
+				},
+				"description": "Auth route that allows user to delete a file by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "test unauthenticated route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/test1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"test1"
+					]
+				},
+				"description": "This is a free route that serves as a control for the protected auth routes. Unauthorized and authorized users should be able to access this route"
+			},
+			"response": []
+		},
+		{
+			"name": "test auth route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/test",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"test"
+					]
+				},
+				"description": "This is a sample protected auth route. Only authorized users should be able to access this route"
+			},
+			"response": []
+		},
+		{
+			"name": "create folder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"test_folder\",\n    \"parent_id\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/file/folder/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"folder",
+						""
+					]
+				},
+				"description": "An auth route that allows user to create a new folder resource"
+			},
+			"response": [
+				{
+					"name": "create folder",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test_folder\",\n    \"parent_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/folder/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"folder",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "92"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5c-Jj2Zg8G3iJwTidA9dafddUk6ewY\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:46:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Folder created successfully\",\n    \"data\": {\n        \"name\": \"test_folder\",\n        \"parent_id\": 1,\n        \"id\": 2\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "get folder items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/file/folder/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"folder",
+						"1"
+					]
+				},
+				"description": "Auth route for getting folder items contained in a particular folder by folder ID"
+			},
+			"response": []
+		},
+		{
+			"name": "get all folders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/file/folder",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"folder"
+					]
+				},
+				"description": "Auth route that retrieves all of the folders belonging to a particular user"
+			},
+			"response": [
+				{
+					"name": "get all folders",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/file/folder",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"folder"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "154"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9a-o5sRjDKpw43XFMS6Fx7aAhrEMHI\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:54:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Folders found\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"name\": \"root\",\n            \"parent_id\": null,\n            \"createdAt\": \"2023-08-27T07:54:13.679Z\",\n            \"updatedAt\": \"2023-08-27T07:54:13.679Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "delete folder",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/file/folder/2",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"file",
+						"folder",
+						"2"
+					]
+				},
+				"description": "Auth route to delete a folder by folder ID. Note that once a folder is deleted, the items contained inside are also deleted."
+			},
+			"response": [
+				{
+					"name": "delete folder",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/file/folder/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"folder",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "41"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"29-kHF9CBWfQPIXWcBBKMKdRmhMIb8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 07:37:29 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Folder deleted successfully\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "webhost",
+			"value": "https://backend-test-ei5e.onrender.com",
+			"type": "string"
+		}
+	]
+}
