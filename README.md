@@ -43,7 +43,7 @@ Welcome to my backend test project
 4. Start the development server:
 
    ```bash
-   npm run dev
+   npm start
    ```
 
 5. Open your postman and navigate to `http://localhost:PORT` to access the app and test the routes.
