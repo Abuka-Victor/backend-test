@@ -10,6 +10,7 @@ import fileRouter from "./routes/file"
 import { checkAllowedMethods, isAuthenticated } from "./middleware"
 import { errorHandler } from "./controllers/error"
 import swaggerDocs from "./utils/swagger"
+import { NODE_ENV } from "./config/keys"
 
 declare module "express" {
   interface Request {
@@ -94,7 +95,7 @@ User.hasMany(FolderItem, {
 })
 FolderItem.belongsTo(User)
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: NODE_ENV === "development" }).then(() => {
   app.listen(port, "0.0.0.0", () => {
     console.log(`Server running at http://localhost:${port}`)
     swaggerDocs(app)

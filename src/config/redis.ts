@@ -1,10 +1,10 @@
 import { createClient } from "redis";
-import { REDIS_URI } from "./keys"
+import { REDIS_URI, NODE_ENV } from "./keys"
 
 const client = createClient({
   url: REDIS_URI as string,
   socket: {
-    tls: true,
+    tls: NODE_ENV === "development",
   }
 })
 

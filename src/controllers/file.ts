@@ -25,7 +25,7 @@ export const createFile = async (req: Request, res: Response) => {
         downloadUrl: downloadUrl
       })
     } else {
-      return res.status(400).json({
+      return res.status(404).json({
         message: 'This folder does not exist'
       })
     }
@@ -123,7 +123,7 @@ export const getFolders = async (req: Request, res: Response) => {
     attributes: { exclude: ["UserId"] }
   })
   if (!folders) {
-    return res.status(200).json({
+    return res.status(404).json({
       message: 'No folders found'
     })
   }
@@ -138,7 +138,7 @@ export const deleteFolder = async (req: Request, res: Response) => {
   const user = await User.findByPk(req.user_id)
   const folderArray = await user?.getFolders({ where: { id: folderId } })
   if (!folderArray || folderArray.length === 0) {
-    return res.status(400).json({
+    return res.status(404).json({
       message: 'User does not have any such folder'
     })
   }
