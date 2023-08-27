@@ -4,9 +4,11 @@ import sequelize from '../config/database';
 class FolderItem extends Model<InferAttributes<FolderItem>, InferCreationAttributes<FolderItem>> {
   declare item_id: CreationOptional<number>;
   declare isFolder: boolean;
-  declare downloadUrl: string;
+  declare downloadUrl: CreationOptional<string>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+  declare name: string;
+  declare storageName: CreationOptional<string>;
 }
 
 FolderItem.init({
@@ -19,6 +21,8 @@ FolderItem.init({
   downloadUrl: { type: DataTypes.STRING },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
+  name: DataTypes.STRING,
+  storageName: DataTypes.STRING
 },
   {
     tableName: 'folderItems',

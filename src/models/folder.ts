@@ -4,6 +4,7 @@ import { FolderItem } from './index';
 
 class Folder extends Model<InferAttributes<Folder, { omit: 'folderItems' }>, InferCreationAttributes<Folder, { omit: 'folderItems' }>> {
   declare id: CreationOptional<number>;
+  declare name: string;
   declare parent_id: ForeignKey<Folder["id"]>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -33,6 +34,7 @@ Folder.init({
     autoIncrement: true,
     primaryKey: true
   },
+  name: { type: DataTypes.STRING, allowNull: false },
   parent_id: { type: DataTypes.INTEGER, allowNull: true },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,

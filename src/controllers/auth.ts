@@ -69,6 +69,7 @@ export const registerHandler = async (req: Request, res: Response) => {
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const newUser = await User.create({ fullname: fullname, email: email, passwordHash: hashedPassword })
+  newUser.createFolder({ name: "root" })
 
   return res.status(201).json({ user: { id: newUser.id, email: newUser.email, fullname: newUser.fullname, createdAt: newUser.createdAt, updatedAt: newUser.updatedAt } })
 }
@@ -81,5 +82,6 @@ export const logOutHandler = async (req: Request, res: Response) => {
   await client.sRem("whitelist", refreshToken)
   res.clearCookie("accessToken")
   res.clearCookie("refreshToken")
+  req.user_id = undefined
   res.status(200).json({ success: "You have successfully signed out" })
 }

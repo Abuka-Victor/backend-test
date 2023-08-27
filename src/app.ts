@@ -29,7 +29,7 @@ app.use(checkAllowedMethods)
 const port = Number(process.env.PORT || 3000)
 
 app.use("/auth", authRouter)
-app.use("/file", fileRouter)
+app.use("/file", isAuthenticated, fileRouter)
 
 app.get("/", (req, res) => {
   res.json({ message: "API is up and running" })

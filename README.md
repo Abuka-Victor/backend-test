@@ -29,8 +29,13 @@ Welcome to my backend test project
 3. Create a `.env` file in the root directory and add necessary environment variables:
 
    ```env
-   PORT=3000
-   DATABASE_URL=your_db_url
+   POSTGRES_URI=your_postgres_uri
+   APP_SECRET=your_app_secret
+   PORT=8080_was_what_I_used_in_development
+   ACCESS_TOKEN_PRIVATE_KEY=your_access_token_secret
+   REFRESH_TOKEN_PRIVATE_KEY=your_refresh_token_secret
+   NODE_ENV=development_or_production
+   REDIS_URI=your_redis_uri
    ```
 
 4. Start the development server:
@@ -39,7 +44,7 @@ Welcome to my backend test project
    npm run dev
    ```
 
-5. Open your browser and navigate to `http://localhost:3000` to access the app.
+5. Open your browser and navigate to `http://localhost:PORT` to access the app.
 
 ## Project Structure
 
@@ -47,14 +52,17 @@ Welcome to my backend test project
   - `app.ts`: Entry point for the Express application.
   - `routes/`: Define your API routes here.
   - `controllers/`: Handle route logic.
-  - `middlewares/`: Custom middleware functions.
-- `test/`: Contains unit and integration tests.
-- `config/`: Configuration files and environment variable management.
+  - `middleware/`: Custom middleware functions.
+  - `test/`: Contains test files
+  - `config/`: Configuration files and environment variable management.
+  - `models/`: Contains model classes.
+  - `utils/`: A folder for helper functions.
+  - `validators/`: A folder for api body validators.
 - `dist/`: Compiled TypeScript code (generated after build).
 
 ## Testing
 
-- Run tests using Jest:
+- Run tests using Mocha and Chai:
   ```bash
   npm test
   ```
@@ -82,7 +90,7 @@ Welcome to my backend test project
 
 2. Run the Docker container:
    ```bash
-   docker run -p 3000:3000 backend-test
+   docker run -p 3000:8080 backend-test
    ```
 
 ## Contact
