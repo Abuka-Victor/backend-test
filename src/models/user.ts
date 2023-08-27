@@ -1,6 +1,6 @@
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes, HasManyAddAssociationMixin, HasManyAddAssociationsMixin, HasManyCountAssociationsMixin, HasManyCreateAssociationMixin, HasManyGetAssociationsMixin, HasManyHasAssociationMixin, HasManyHasAssociationsMixin, HasManyRemoveAssociationMixin, HasManyRemoveAssociationsMixin, HasManySetAssociationsMixin, NonAttribute, Association } from 'sequelize';
 import sequelize from '../config/database';
-import { Folder, FolderItem } from "./index"
+import { Folder } from "./index"
 
 class User extends Model<InferAttributes<User, { omit: 'folders', }>, InferCreationAttributes<User, { omit: 'folders' }>> {
   declare id: CreationOptional<number>;
@@ -21,23 +21,10 @@ class User extends Model<InferAttributes<User, { omit: 'folders', }>, InferCreat
   declare countFolders: HasManyCountAssociationsMixin;
   declare createFolder: HasManyCreateAssociationMixin<Folder>;
 
-  declare getFolderItems: HasManyGetAssociationsMixin<FolderItem>;
-  declare addFolderItem: HasManyAddAssociationMixin<FolderItem, number>;
-  declare addFolderItems: HasManyAddAssociationsMixin<FolderItem, number>;
-  declare setFolderItems: HasManySetAssociationsMixin<FolderItem, number>;
-  declare removeFolderItem: HasManyRemoveAssociationMixin<FolderItem, number>;
-  declare removeFolderItems: HasManyRemoveAssociationsMixin<FolderItem, number>;
-  declare hasFolderItem: HasManyHasAssociationMixin<FolderItem, number>;
-  declare hasFolderItems: HasManyHasAssociationsMixin<FolderItem, number>;
-  declare countFolderItems: HasManyCountAssociationsMixin;
-  declare createFolderItem: HasManyCreateAssociationMixin<FolderItem>;
-
   declare folders?: NonAttribute<Folder[]>;
-  declare items?: NonAttribute<FolderItem[]>;
 
   declare static associations: {
     folders: Association<User, Folder>;
-    items: Association<User, FolderItem>;
   };
 }
 

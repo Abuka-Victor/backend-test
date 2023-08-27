@@ -44,7 +44,8 @@ Welcome to my backend test project
    npm run dev
    ```
 
-5. Open your browser and navigate to `http://localhost:PORT` to access the app.
+5. Open your postman and navigate to `http://localhost:PORT` to access the app and test the routes.
+6. Navigate to `http://localhost:PORT/docs` to access the swagger docs UI.
 
 ## Project Structure
 
@@ -56,7 +57,7 @@ Welcome to my backend test project
   - `test/`: Contains test files
   - `config/`: Configuration files and environment variable management.
   - `models/`: Contains model classes.
-  - `utils/`: A folder for helper functions.
+  - `utils/`: A folder for helper functions and my swagger setup
   - `validators/`: A folder for api body validators.
 - `dist/`: Compiled TypeScript code (generated after build).
 

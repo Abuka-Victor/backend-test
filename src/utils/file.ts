@@ -21,10 +21,10 @@ export const getFilePath = async (url: string, filename: string): Promise<string
 
 export const deleteFilesInTmp = async () => {
   try {
-    for (const file of await fs.readdir("../../tmp")) {
-      await fs.unlink(Path.join("../../tmp", file));
+    for (const file of await fs.readdir(`${__dirname}/../../tmp`)) {
+      await fs.unlink(Path.join(`${__dirname}/../../tmp`, file));
     }
   } catch (err) {
-    throw new Error("An error occurred while uploading the file", { cause: err })
+    throw new Error("An error occurred while clearing tmp folder", { cause: err })
   }
 }

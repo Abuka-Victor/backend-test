@@ -14,7 +14,7 @@ export const createFile = async (req: Request, res: Response) => {
     } else {
       FolderArray = await user?.getFolders({ where: { id: folderId } })
     }
-    if (FolderArray) {
+    if (FolderArray && FolderArray.length !== 0) {
       const uploadFolder = FolderArray[0]
       const { downloadUrl, storageName } = await uploadFile(req.file)
       await uploadFolder?.createFolderItem({ name: req.file?.originalname, isFolder: false, downloadUrl: downloadUrl, storageName: storageName })
@@ -67,12 +67,12 @@ export const createFolder = async (req: Request, res: Response) => {
   const { name, parent_id } = req.body
   if (!name || !parent_id) {
     return res.status(400).json({
-      message: 'Name and parent_id are required'
+      message: 'name and parent_id are required'
     })
   }
   const user = await User.findByPk(req.user_id);
-  const parentFolder = await user?.getFolders({ where: { parent_id: parent_id } })
-  if (!parentFolder) {
+  const parentFolder = await user?.getFolders({ where: { id: parent_id } })
+  if (!parentFolder || parentFolder.length === 0) {
     return res.status(400).json({
       message: 'The parent folder does not exist'
     })
@@ -95,16 +95,18 @@ export const createFolder = async (req: Request, res: Response) => {
 }
 
 export const getFolderItems = async (req: Request, res: Response) => {
-  const folderId = req.params.folderId
+  const folderId = Number(req.params.folderId)
   const user = await User.findByPk(req.user_id);
   const folder = await user?.getFolders({ where: { id: folderId } })
-  if (!folder) {
+  if (!folder || folder.length === 0) {
     return res.status(400).json({
       message: 'Folder does not exist'
     })
   }
-  const folderItems = await folder[0].getFolderItems()
-  if (!folderItems) {
+  const folderItems = await folder[0].getFolderItems({
+    attributes: { exclude: ["UserId"] }
+  })
+  if (!folderItems || folderItems.length === 0) {
     return res.status(200).json({
       message: 'Folder is empty'
     })
@@ -117,7 +119,9 @@ export const getFolderItems = async (req: Request, res: Response) => {
 
 export const getFolders = async (req: Request, res: Response) => {
   const user = await User.findByPk(req.user_id);
-  const folders = await user?.getFolders()
+  const folders = await user?.getFolders({
+    attributes: { exclude: ["UserId"] }
+  })
   if (!folders) {
     return res.status(200).json({
       message: 'No folders found'
@@ -128,13 +132,14 @@ export const getFolders = async (req: Request, res: Response) => {
     data: folders
   })
 }
+
 export const deleteFolder = async (req: Request, res: Response) => {
   const folderId = req.params.folderId
   const user = await User.findByPk(req.user_id)
   const folderArray = await user?.getFolders({ where: { id: folderId } })
-  if (!folderArray) {
+  if (!folderArray || folderArray.length === 0) {
     return res.status(400).json({
-      message: 'User does not have any folder'
+      message: 'User does not have any such folder'
     })
   }
   const folder = folderArray[0]
