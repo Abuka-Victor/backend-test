@@ -2,7 +2,7 @@ import { Model, InferAttributes, InferCreationAttributes, CreationOptional, Data
 import sequelize from '../config/database';
 import { Folder } from "./index"
 
-class User extends Model<InferAttributes<User, { omit: 'folders' }>, InferCreationAttributes<User, { omit: 'folders' }>> {
+class User extends Model<InferAttributes<User, { omit: 'folders', }>, InferCreationAttributes<User, { omit: 'folders' }>> {
   declare id: CreationOptional<number>;
   declare fullname: string;
   declare email: string;

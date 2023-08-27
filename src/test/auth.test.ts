@@ -6,6 +6,8 @@ const expect = chai.expect
 const baseurl = "http://localhost:8080"
 
 
+// Test only runs properly when sync({force: true}) because it works on fresh db instances
+
 describe("Auth", () => {
   it("should not be able to login without registering", (done) => {
     chai.request(`${baseurl}`).post('/auth/login').send({ email: "stuff@gmail.com", password: "stuffingsA1*" }).end((err, res) => {
