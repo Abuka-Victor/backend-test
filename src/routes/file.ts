@@ -74,7 +74,7 @@ fileRouter.get("/folder", getFolders) // get all folders
 
 /**
    * @openapi
-   * /file/folder/:folderId:
+   * /file/folder/{folderId}:
    *  get:
    *     tags:
    *     - File
@@ -98,7 +98,7 @@ fileRouter.get("/folder/:folderId", getFolderItems) // get all items in a folder
 
 /**
    * @openapi
-   * /file/folder/:folderId:
+   * /file/folder/{folderId}:
    *  delete:
    *     tags:
    *     - File
@@ -121,7 +121,7 @@ fileRouter.delete('/folder/:folderId', deleteFolder)
 
 /**
    * @openapi
-   * /file/:folderId:
+   * /file/{folderId}:
    *  post:
    *     tags:
    *     - File
@@ -153,7 +153,7 @@ fileRouter.post('/:folderId', upload.single("filename"), createFile) // create f
 
 /**
    * @openapi
-   * /file/:fileId:
+   * /file/{fileId}:
    *  get:
    *     tags:
    *     - File
@@ -176,7 +176,7 @@ fileRouter.get("/:fileId", getFile) // get a particular file
 
 /**
    * @openapi
-   * /file/:fileId:
+   * /file/{fileId}:
    *  delete:
    *     tags:
    *     - File
